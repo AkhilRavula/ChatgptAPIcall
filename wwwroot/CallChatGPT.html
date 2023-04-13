@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ChatGPT API Call</title>
+</head>
+<body>
+    <form>
+        <div style="width: 500px; margin-left: auto; margin-right: auto">
+            <label id="lbl">Text:</label>
+            <input id="enterquery" type="text" />
+            <input id="callController" type="submit" value="submit" onclick="CallAPI(event)" />
+        </div>
+        <div id="Response"></div>
+    </form>
+    <script type="text/javascript">
+        callapibtn = document.getElementById("callController");
+        inputtxt = document.getElementById("enterquery").value;
+        showresponse = document.getElementById("Response");
+        async function CallAPI(event)
+        {
+            event.preventDefault();
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    body: new URLSearchParams(
+                        {
+                            input: inputtxt
+                    }),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            const myJson = await response.text();
+            showresponse.innerText = myJson;
+        };
+
+    </script>
+</body>
+</html>
